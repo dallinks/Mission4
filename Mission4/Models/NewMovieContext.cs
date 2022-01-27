@@ -21,13 +21,37 @@ namespace Mission4.Models
                 {
                     MovieID = 1,
                     Category = "Action",
-                    Title = "Naruto",
-                    Year = 1994,
+                    Title = "Interstellar",
+                    Year = 2015,
                     Director = "John Smith",
-                    Rating = "G",
+                    Rating = "PG",
                     Edited = false,
                     LentTo = "",
                     Notes = ""
+                },
+                new ApplicationResponse
+                {
+                    MovieID = 2,
+                    Category = "Romance",
+                    Title = "16 Candles",
+                    Year = 1994,
+                    Director = "Jenny Smith",
+                    Rating = "G",
+                    Edited = false,
+                    LentTo = "",
+                    Notes = "This one's weird"
+                },
+                new ApplicationResponse
+                {
+                    MovieID = 3,
+                    Category = "Horror",
+                    Title = "The Watcher",
+                    Year = 2010,
+                    Director = "Whitney White",
+                    Rating = "R",
+                    Edited = true,
+                    LentTo = "My dad",
+                    Notes = "Spooky"
                 }
                 );
         }
