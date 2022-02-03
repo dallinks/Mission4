@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mission4.Models;
 using System;
@@ -11,12 +12,11 @@ namespace Mission4.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+
         private NewMovieContext _NewMovieContextFile { get; set; }
 
-        public HomeController(ILogger<HomeController> logger, NewMovieContext someName)
+        public HomeController(NewMovieContext someName)
         {
-            _logger = logger;
             _NewMovieContextFile = someName;
         }
 
@@ -24,28 +24,62 @@ namespace Mission4.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
         [HttpGet]
         public IActionResult AddNewMovie()
         {
+            ViewBag.Category = _NewMovieContextFile.Categories.ToList();
             return View("NewMovie");
         }
         [HttpPost]
         public IActionResult AddNewMovie(ApplicationResponse response)
         {
-            _NewMovieContextFile.Add(response);
-            _NewMovieContextFile.SaveChanges();
-            return View("Confirmation",response);
+            if (ModelState.IsValid)
+            {
+                _NewMovieContextFile.Add(response);
+                _NewMovieContextFile.SaveChanges();
+                return View("Confirmation", response);
+            }
+            else
+            {
+                ViewBag.Category = _NewMovieContextFile.Categories.ToList();
+                return View("NewMovie");
+            }
         }
+        
+        public IActionResult MovieList()
+        {
+            var applications = _NewMovieContextFile.Responses.Include(x => x.Category).ToList();
+
+            return View(applications);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Category = _NewMovieContextFile.Categories.ToList();
+            var application = _NewMovieContextFile.Responses.Single(x=> x.MovieID == id);
+            return View("NewMovie",application);
+        }
+        [HttpPost]
+        public IActionResult Edit(ApplicationResponse blah)
+        {
+            _NewMovieContextFile.Update(blah);
+            _NewMovieContextFile.SaveChanges();
+            return RedirectToAction("MovieList");
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var application = _NewMovieContextFile.Responses.Single(x => x.MovieID == id);
+
+            return View("Delete",application);
+        }
+        [HttpPost]
+        public IActionResult Delete(ApplicationResponse ar)
+        {
+            _NewMovieContextFile.Responses.Remove(ar);
+            _NewMovieContextFile.SaveChanges();
+            return RedirectToAction("MovieList");
+        }
+
     }
 }

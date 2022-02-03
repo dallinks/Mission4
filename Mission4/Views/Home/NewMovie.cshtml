@@ -2,12 +2,21 @@
     ViewData["Title"] = "New Movie Form";
 }
 
+
 @model Mission4.Models.ApplicationResponse
 
 <div>
     <form method="post">
-        <label asp-for="Category">Category: </label>
-        <input asp-for="Category" /><br />
+        <div asp-validation-summary="All"></div>
+        <label asp-for="CategoryID">Category: </label>
+        <select asp-for="CategoryID">
+            <option>Select a Category</option>
+            @foreach (Category c in ViewBag.Category)
+            {
+                <option value="@c.CategoryID">@c.CategoryName</option>
+            }
+
+        </select><br />
         <label>Title: </label>
         <input asp-for="Title" /><br />
         <label>Year: </label>

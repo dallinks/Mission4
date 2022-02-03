@@ -13,14 +13,27 @@ namespace Mission4.Models
         {
             
         }
-        public DbSet<ApplicationResponse> responses { get; set; }
+        public DbSet<ApplicationResponse> Responses { get; set; }
+        public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category { CategoryID = 1, CategoryName="Action/Adventure" },
+                new Category { CategoryID = 2, CategoryName = "Comedy"},
+                new Category { CategoryID = 3, CategoryName = "Drama" },
+                new Category { CategoryID = 4, CategoryName = "Family" },
+                new Category { CategoryID = 5, CategoryName = "Comedy" },
+                new Category { CategoryID = 6, CategoryName = "Horror/Suspense" },
+                new Category { CategoryID = 7, CategoryName = "Comedy" },
+                new Category { CategoryID = 8, CategoryName = "Miscellaneous" },
+                new Category { CategoryID = 9, CategoryName = "Television" },
+                new Category { CategoryID = 10, CategoryName = "VHS" }
+            );
             mb.Entity<ApplicationResponse>().HasData(
                 new ApplicationResponse
                 {
                     MovieID = 1,
-                    Category = "Action",
+                    CategoryID = 1,
                     Title = "Interstellar",
                     Year = 2015,
                     Director = "John Smith",
@@ -32,7 +45,7 @@ namespace Mission4.Models
                 new ApplicationResponse
                 {
                     MovieID = 2,
-                    Category = "Romance",
+                    CategoryID = 2,
                     Title = "16 Candles",
                     Year = 1994,
                     Director = "Jenny Smith",
@@ -44,7 +57,7 @@ namespace Mission4.Models
                 new ApplicationResponse
                 {
                     MovieID = 3,
-                    Category = "Horror",
+                    CategoryID = 3,
                     Title = "The Watcher",
                     Year = 2010,
                     Director = "Whitney White",
