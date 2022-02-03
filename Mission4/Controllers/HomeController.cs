@@ -56,7 +56,7 @@ namespace Mission4.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Category = _NewMovieContextFile.Categories.ToList();
-            var application = _NewMovieContextFile.Responses.Single(x=> x.MovieID == id);
+            var application = _NewMovieContextFile.Responses.Single(x => x.MovieID == id);
             return View("NewMovie",application);
         }
         [HttpPost]
