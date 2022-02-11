@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-
+//Controllers should be self explanatory by name. 
 namespace Mission4.Controllers
 {
     public class HomeController : Controller
@@ -60,6 +60,7 @@ namespace Mission4.Controllers
             return View("NewMovie",application);
         }
         [HttpPost]
+        //sends the edit to the movie list.
         public IActionResult Edit(ApplicationResponse blah)
         {
             _NewMovieContextFile.Update(blah);
@@ -74,6 +75,7 @@ namespace Mission4.Controllers
             return View("Delete",application);
         }
         [HttpPost]
+        //deletes movies
         public IActionResult Delete(ApplicationResponse ar)
         {
             _NewMovieContextFile.Responses.Remove(ar);

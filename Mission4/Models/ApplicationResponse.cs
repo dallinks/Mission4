@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-
+//These are all of the attributes required for the movie.
 namespace Mission4.Models
 {
     public class ApplicationResponse
