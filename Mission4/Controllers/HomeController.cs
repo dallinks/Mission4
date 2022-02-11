@@ -28,7 +28,7 @@ namespace Mission4.Controllers
         public IActionResult AddNewMovie()
         {
             ViewBag.Category = _NewMovieContextFile.Categories.ToList();
-            return View("NewMovie");
+            return View("NewMovie",new ApplicationResponse());
         }
         [HttpPost]
         public IActionResult AddNewMovie(ApplicationResponse response)
